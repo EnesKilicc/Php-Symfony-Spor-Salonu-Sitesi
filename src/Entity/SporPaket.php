@@ -82,6 +82,11 @@ class SporPaket
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $detail;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -239,6 +244,18 @@ class SporPaket
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getDetail(): ?string
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(?string $detail): self
+    {
+        $this->detail = $detail;
 
         return $this;
     }

@@ -8,6 +8,9 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <h1>Category index</h1>
+                <div class="col-md-2">
+                <a href="{{ path('category_new') }}" class="btn btn-success">Create new</a>
+                </div>
 
     <table class="table table-striped">
         <thead>
@@ -19,7 +22,7 @@
                 <th>Description</th>
                 <th>Image</th>
                 <th>Status</th>
-                <th>actions</th>
+
             </tr>
         </thead>
         <tbody>
@@ -33,8 +36,11 @@
                 <td>{{ category.image }}</td>
                 <td>{{ category.status }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('category_show', {'id': category.id}) }}"class="btn btn-block btn-primary">show</a>
+
+                </td>
+                <td>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}"class="btn btn-block btn-primary">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -45,7 +51,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('category_new') }}">Create new</a>
+
             </div>
         </div>
     </div>

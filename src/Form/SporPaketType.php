@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\SporPaket;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use phpDocumentor\Reflection\Type;
 use PhpParser\Node\Scalar\MagicConst\File as Files;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -59,6 +60,11 @@ class SporPaketType extends AbstractType
                 ],
             ])
             ->add('fiyat')
+            ->add('detail',CKEditorType::class, array(
+                'config' => array(
+                    'uicolor' => '#ffffff',
+                ),
+            ))
             ->add('status', ChoiceType::class,[
                 'choices' => [
                     'True' => 'True',
