@@ -3,6 +3,11 @@
 {% block title %}SporPaket index{% endblock %}
 
 {% block body %}
+    <SCRIPT language="JavaScript" type="text/javascript">   
+    function openWin(windowURL, windowName, windowFeatures) {
+        window.open(windowURL, windowName, windowFeatures);
+    }
+    </SCRIPT>
 <div class="dashboard-wrapper">
     <div class="container-fluid dashboard-content">
         <div class="row">
@@ -23,6 +28,7 @@
                 <th>Days</th>
                 <th>Kisisayisi</th>
                 <th>Fiyat</th>
+                <th>I.Gallery</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -39,6 +45,11 @@
                 <td>{{ spor_paket.days }}</td>
                 <td>{{ spor_paket.kisisayisi }}</td>
                 <td>{{ spor_paket.fiyat }}</td>
+                <td>
+                    <a href="javascript:openWin('{{path('admin_image_new', {'id':spor_paket.id})  }}','','toolbar=no,location=no,directories=0,status=no,top=50,left=100,menuBar=no,scrollBars=yes,resizeable=no,width=900,height600');">
+                        <img src="{{ asset('assets/admin/img') }}/gallery.png" height="40">
+                    </a>
+                </td>
                 <td>{{ spor_paket.status }}</td>
                 <td>
                     <a href="{{ path('spor_paket_show', {'id': spor_paket.id}) }}" class="btn btn-block btn-info">show</a>

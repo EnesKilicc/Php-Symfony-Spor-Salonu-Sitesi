@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SporPaketRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -86,6 +88,16 @@ class SporPaket
      * @ORM\Column(type="text", nullable=true)
      */
     private $detail;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="sporPaket")
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -258,5 +270,40 @@ class SporPaket
         $this->detail = $detail;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setSporPaket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getSporPaket() === $this) {
+                $image->setSporPaket(null);
+            }
+        }
+
+        return $this;
+    }
+    public  function __toString()
+    {
+        return $this->title;
     }
 }
