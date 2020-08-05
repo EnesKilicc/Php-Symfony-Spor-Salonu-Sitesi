@@ -1,0 +1,61 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}SporPaket index{% endblock %}
+
+{% block body %}
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <h1>SporPaket index</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Keywords</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Trainer</th>
+                <th>Saat</th>
+                <th>Days</th>
+                <th>Kisisayisi</th>
+                <th>Fiyat</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for spor_paket in spor_pakets %}
+            <tr>
+                <td>{{ spor_paket.id }}</td>
+                <td>{{ spor_paket.title }}</td>
+                <td>{{ spor_paket.keywords }}</td>
+                <td>{{ spor_paket.description }}</td>
+                <td><img src="{{ asset('uploads/images/' ~ spor_paket.image) }}" height="40"></td>
+                <td>{{ spor_paket.Trainer }}</td>
+                <td>{{ spor_paket.Saat ? spor_paket.Saat|date('H:i:s') : '' }}</td>
+                <td>{{ spor_paket.days }}</td>
+                <td>{{ spor_paket.kisisayisi }}</td>
+                <td>{{ spor_paket.fiyat }}</td>
+                <td>{{ spor_paket.status }}</td>
+                <td>
+                    <a href="{{ path('spor_paket_show', {'id': spor_paket.id}) }}">show</a>
+                    <a href="{{ path('spor_paket_edit', {'id': spor_paket.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('spor_paket_new') }}">Create new</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

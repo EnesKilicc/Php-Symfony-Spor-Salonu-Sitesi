@@ -1,0 +1,74 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}SporPaket{% endblock %}
+
+{% block body %}
+    <div class="dashboard-wrapper">
+        <div class="container-fluid dashboard-content">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <h1>SporPaket</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ spor_paket.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ spor_paket.title }}</td>
+            </tr>
+            <tr>
+                <th>Keywords</th>
+                <td>{{ spor_paket.keywords }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ spor_paket.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('uploads/images/' ~ spor_paket.image) }}" height="40"> </td>
+            </tr>
+            <tr>
+                <th>Trainer</th>
+                <td>{{ spor_paket.Trainer }}</td>
+            </tr>
+            <tr>
+                <th>Saat</th>
+                <td>{{ spor_paket.Saat ? spor_paket.Saat|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Days</th>
+                <td>{{ spor_paket.days }}</td>
+            </tr>
+            <tr>
+                <th>Kisisayisi</th>
+                <td>{{ spor_paket.kisisayisi }}</td>
+            </tr>
+            <tr>
+                <th>Fiyat</th>
+                <td>{{ spor_paket.fiyat }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ spor_paket.status }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ spor_paket.createdAt ? spor_paket.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('spor_paket_index') }}">back to list</a>
+
+    <a href="{{ path('spor_paket_edit', {'id': spor_paket.id}) }}">edit</a>
+
+    {{ include('admin/spor_paket/_delete_form.html.twig') }}
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

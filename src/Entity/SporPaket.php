@@ -2,15 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\SporPaketRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\Entity(repositoryClass=SporPaketRepository::class)
  */
-class Category
+class SporPaket
 {
     /**
      * @ORM\Id()
@@ -18,11 +16,6 @@ class Category
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $parentid;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
@@ -40,9 +33,34 @@ class Category
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=75, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="string", length=70, nullable=true)
+     */
+    private $Trainer;
+
+    /**
+     * @ORM\Column(type="time", nullable=true)
+     */
+    private $Saat;
+
+    /**
+     * @ORM\Column(type="string", length=80, nullable=true)
+     */
+    private $days;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $kisisayisi;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $fiyat;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
@@ -54,36 +72,19 @@ class Category
      */
     private $created_at;
 
-    /**
+    /*
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity=SporPaket::class, mappedBy="category")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="sporPakets")
      */
-    private $sporPakets;
-
-    public function __construct()
-    {
-        $this->sporPakets = new ArrayCollection();
-    }
+    private $category;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getParentid(): ?int
-    {
-        return $this->parentid;
-    }
-
-    public function setParentid(?int $parentid): self
-    {
-        $this->parentid = $parentid;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -134,6 +135,66 @@ class Category
         return $this;
     }
 
+    public function getTrainer(): ?string
+    {
+        return $this->Trainer;
+    }
+
+    public function setTrainer(?string $Trainer): self
+    {
+        $this->Trainer = $Trainer;
+
+        return $this;
+    }
+
+    public function getSaat(): ?\DateTimeInterface
+    {
+        return $this->Saat;
+    }
+
+    public function setSaat(?\DateTimeInterface $Saat): self
+    {
+        $this->Saat = $Saat;
+
+        return $this;
+    }
+
+    public function getDays(): ?string
+    {
+        return $this->days;
+    }
+
+    public function setDays(?string $days): self
+    {
+        $this->days = $days;
+
+        return $this;
+    }
+
+    public function getKisisayisi(): ?int
+    {
+        return $this->kisisayisi;
+    }
+
+    public function setKisisayisi(?int $kisisayisi): self
+    {
+        $this->kisisayisi = $kisisayisi;
+
+        return $this;
+    }
+
+    public function getFiyat(): ?int
+    {
+        return $this->fiyat;
+    }
+
+    public function setFiyat(?int $fiyat): self
+    {
+        $this->fiyat = $fiyat;
+
+        return $this;
+    }
+
     public function getStatus(): ?string
     {
         return $this->status;
@@ -170,38 +231,15 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection|SporPaket[]
-     */
-    public function getSporPakets(): Collection
+    public function getCategory(): ?Category
     {
-        return $this->sporPakets;
+        return $this->category;
     }
 
-    public function addSporPaket(SporPaket $sporPaket): self
+    public function setCategory(?Category $category): self
     {
-        if (!$this->sporPakets->contains($sporPaket)) {
-            $this->sporPakets[] = $sporPaket;
-            $sporPaket->setCategory($this);
-        }
+        $this->category = $category;
 
         return $this;
-    }
-
-    public function removeSporPaket(SporPaket $sporPaket): self
-    {
-        if ($this->sporPakets->contains($sporPaket)) {
-            $this->sporPakets->removeElement($sporPaket);
-            // set the owning side to null (unless already changed)
-            if ($sporPaket->getCategory() === $this) {
-                $sporPaket->setCategory(null);
-            }
-        }
-
-        return $this;
-    }
-    public  function __toString()
-    {
-        return $this->title;
     }
 }
