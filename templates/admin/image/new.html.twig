@@ -51,7 +51,7 @@
         <tr>
             <td>{{ image.id }}</td>
             <td>{{ image.title }}</td>
-            <td><img src="{{asset('uploads/images' ~ image.image)  }}" height="40"> </td>
+            <td><img src="{{asset('uploads/images/' ~ image.image)  }}" height="40"> </td>
             <td>
                 <form method="post" action="{{ path('image_delete', {'id': image.id, 'hid': id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
                     <input type="hidden" name="_method" value="DELETE">
