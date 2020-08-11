@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SporPaket{% endblock %}
+
+{% block body %}
+    <h1>SporPaket</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ spor_paket.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ spor_paket.title }}</td>
+            </tr>
+            <tr>
+                <th>Keywords</th>
+                <td>{{ spor_paket.keywords }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ spor_paket.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ spor_paket.image }}</td>
+            </tr>
+            <tr>
+                <th>Trainer</th>
+                <td>{{ spor_paket.Trainer }}</td>
+            </tr>
+            <tr>
+                <th>Saat</th>
+                <td>{{ spor_paket.Saat ? spor_paket.Saat|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Days</th>
+                <td>{{ spor_paket.days }}</td>
+            </tr>
+            <tr>
+                <th>Kisisayisi</th>
+                <td>{{ spor_paket.kisisayisi }}</td>
+            </tr>
+            <tr>
+                <th>Fiyat</th>
+                <td>{{ spor_paket.fiyat }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ spor_paket.status }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ spor_paket.createdAt ? spor_paket.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Detail</th>
+                <td>{{ spor_paket.detail }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_spor_paket_index') }}">back to list</a>
+
+    <a href="{{ path('user_spor_paket_edit', {'id': spor_paket.id}) }}">edit</a>
+
+    {{ include('spor_paket/_delete_form.html.twig') }}
+{% endblock %}

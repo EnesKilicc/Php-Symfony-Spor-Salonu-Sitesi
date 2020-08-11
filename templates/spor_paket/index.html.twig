@@ -3,37 +3,34 @@
 {% block title %}{{ app.user.name }} Profil{% endblock %}
 
 {% block body %}
-    <section id="inner-headline">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
-                        <li><a href="/user">{{ app.user.name }} {{ app.user.surname }}</a><i class="icon-angle-right"></i></li>
-                        <li><a href="/user/{{ app.user.id }}/edit">My Packets</a><i class="icon-angle-right"></i></li>
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li><a href="/user">{{ app.user.name }} {{ app.user.surname }}</a><i class="icon-angle-right"></i></li>
+                    <li><a href="/user/{{ app.user.id }}/edit">My Packets</a><i class="icon-angle-right"></i></li>
 
-                    </ul>
-                </div>
+                </ul>
             </div>
         </div>
-    </section>
-    <section id="content">
-        <div class="container">
-            <div class="row">
-                <div class="widget" style="width: 300px">
-                    <form role="form">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="s" placeholder="Search..">
-                        </div>
-                    </form>
-                </div>
-                {{ include('user/usermenu.html.twig') }}
-                <div class="col-lg-8">
-                    <article>
-                       <h1>MY PACKETS</h1>
-
-                    </article>
-                    <a href="{{ path('spor_paket_new') }}" class="btn btn-success">Create new</a></div>
+    </div>
+</section>
+<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="widget" style="width: 300px">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="s" placeholder="Search..">
+                    </div>
+                </form>
+            </div>
+            {{ include('user/usermenu.html.twig') }}
+            <div class="col-lg-8">
+                <div class="col-md-2">
+                    <a href="{{ path('user_spor_paket_new') }}" class="btn btn-success">Create new</a></div>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -71,16 +68,12 @@
                             </td>
                             <td>{{ spor_paket.status }}</td>
                             <td>
-                                <a href="{{ path('spor_paket_show', {'id': spor_paket.id}) }}" class="btn btn-block btn-info">show</a>
+                                <a href="{{ path('user_spor_paket_show', {'id': spor_paket.id}) }}" class="btn btn-block btn-info">show</a>
                             </td>
                             <td>
-                                <a href="{{ path('spor_paket_edit', {'id': spor_paket.id}) }}"class="btn btn-block btn-success">edit</a>
+                                <a href="{{ path('user_spor_paket_edit', {'id': spor_paket.id}) }}"class="btn btn-block btn-success">edit</a>
                             </td>
-                            <td>
-                                <div class="col-md-2">
-                                    {{ include('admin/spor_paket/_delete_form.html.twig') }}
-                                </div>
-                            </td>
+                           
                         </tr>
                     {% else %}
                         <tr>
@@ -89,9 +82,8 @@
                     {% endfor %}
                     </tbody>
                 </table>
-
-                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}

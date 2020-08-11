@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SporPaket{% endblock %}
+
+{% block body %}
+    <h1>Create new SporPaket</h1>
+
+    {{ include('spor_paket/_form.html.twig') }}
+
+    <a href="{{ path('user_spor_paket_index') }}">back to list</a>
+{% endblock %}

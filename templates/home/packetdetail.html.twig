@@ -1,0 +1,93 @@
+{% extends 'homebase.html.twig' %}
+
+{% block title %}{{setting[0].title}}{% endblock %}
+{% block description %}{{setting[0].description}}{% endblock %}
+{% block keywords %}{{setting[0].keywords}}{% endblock %}
+
+
+{% block body %}
+    <section id="inner-headline">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
+                        <li class="active">{{ packet.title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+<section id="content">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-7">
+                <div id="post-slider" class="postslider flexslider">
+                    <ul class="slides">
+                        <li>
+                            <img src="{{ asset('uploads/images/' ~ packet.image) }}" alt="" />
+                        </li>
+                        {% for rs in image %}
+                        <li>
+                            <img src="{{ asset('uploads/images/' ~ rs.image) }}" alt="" />
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <article>
+
+                        <div class="post-heading">
+                            <h3>{{ packet.title }}</h3>
+                        </div>
+
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Title</th>
+                            <td>{{ packet.title }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ packet.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Trainer</th>
+                            <td>{{ packet.Trainer }}</td>
+                        </tr>
+                        <tr>
+                            <th>Saat</th>
+                            <td>{{ packet.Saat ? packet.Saat|date('H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Days</th>
+                            <td>{{ packet.days }}</td>
+                        </tr>
+                        <tr>
+                            <th>Kisisayisi</th>
+                            <td>{{ packet.kisisayisi }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fiyat</th>
+                            <td>{{ packet.fiyat }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Detail</th>
+                            <td>{{ packet.detail }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="bottom-article">
+                        <button href="#" class="btn btn-info">Satın Al</button>
+                    </div>
+                </article>
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock %}
