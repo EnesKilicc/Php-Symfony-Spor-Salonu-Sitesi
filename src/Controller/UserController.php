@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin\Purchase;
 use App\Entity\User;
+use App\Form\Admin\PurchaseType;
 use App\Form\UserType;
+use App\Repository\Admin\PurchaseRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\SporPaketRepository;
 use App\Repository\UserRepository;
 use phpDocumentor\Reflection\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,30 +26,40 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('user/show.html.twig');
+        $category = $categoryRepository->findAll();
+        return $this->render('user/show.html.twig',['category' => $category,]);
     }
     /**
-     * @Route("/comments", name="user_comments", methods={"GET"})
+     * @Route("/purchase", name="user_purchase", methods={"GET"})
      */
-    public function comments(): Response
+    public function purchase(CategoryRepository $categoryRepository,PurchaseRepository $purchaseRepository): Response
     {
-        return $this->render('user/comments.html.twig');
+        $user = $this->getUser();
+        //$purchases = $purchaseRepository->findBy(['userid'=>$user->getId()]);
+        $purchases=$purchaseRepository->getuserPurchase($user->getId());
+        $category = $categoryRepository->findAll();
+        return $this->render('user/purchases.html.twig',[
+            'category' => $category,
+            'purchases'=>$purchases,
+        ]);
     }
     /**
      * @Route("/packets", name="user_packets", methods={"GET"})
      */
-    public function packets(): Response
+    public function packets(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('user/packets.html.twig');
+        $category = $categoryRepository->findAll();
+        return $this->render('user/packets.html.twig',['category' => $category]);
     }
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request,UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request,UserPasswordEncoderInterface $passwordEncoder,CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findAll();
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -79,6 +94,7 @@ class UserController extends AbstractController
         return $this->render('user/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'category'=>$category
         ]);
     }
     /**
@@ -91,18 +107,21 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function show(User $user,CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findAll();
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'category'=>$category
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request,$id, User $user,UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request,$id, User $user,UserPasswordEncoderInterface $passwordEncoder,CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findAll();
         $user = $this->getUser();
         if ($user->getId() != $id)
         {
@@ -139,14 +158,16 @@ class UserController extends AbstractController
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'category'=>$category
         ]);
     }
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user,CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findAll();
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
@@ -154,5 +175,49 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+    /**
+     * @Route("/purchase/{pid}", name="user_purchase_new", methods={"GET","POST"})
+     */
+    public function newpurchase(Request $request,$pid,CategoryRepository $categoryRepository,SporPaketRepository $paketRepository): Response
+    {
+        $duration = $_REQUEST['duration'];
+
+        $paket = $paketRepository->findOneBy(['id'=>$pid]);
+        $category = $categoryRepository->findAll();
+        $total = $duration * $paket->getFiyat();
+        $submittedToken = $request->request->get('token');
+
+        $purchase = new Purchase();
+        $form = $this->createForm(PurchaseType::class, $purchase);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if($this->isCsrfTokenValid('form-purchase',$submittedToken)) {
+                $purchase->setStatus('New');
+                $purchase->setIp($_SERVER['REMOTE_ADDR']);
+                $purchase->setPaketid($pid);
+                $user = $this->getUser();
+                $purchase->setUserid($user->getId());
+                $purchase->setTotal($total);
+                $purchase->setDuration($duration);
+
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($purchase);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('user_purchase');
+            }
+        }
+
+        return $this->render('user/newpurchase.html.twig', [
+            'purchase' => $purchase,
+            'form' => $form->createView(),
+            'category'=>$category,
+            'paket'=>$paket,
+            'total'=>$total,
+            'duration'=>$duration,
+        ]);
     }
 }

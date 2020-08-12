@@ -1,0 +1,66 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <h1>Purchase index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Userid</th>
+                <th>Paketid</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Duration</th>
+                <th>Total</th>
+                <th>Ip</th>
+                <th>Note</th>
+                <th>Status</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for purchase in purchases %}
+            <tr>
+                <td>{{ purchase.id }}</td>
+                <td>{{ purchase.username }}</td>
+                <td>{{ purchase.pname }}</td>
+                <td>{{ purchase.name }}</td>
+                <td>{{ purchase.surname }}</td>
+                <td>{{ purchase.email }}</td>
+                <td>{{ purchase.phone }}</td>
+                <td>{{ purchase.duration }}</td>
+                <td>{{ purchase.total }}</td>
+                <td>{{ purchase.ip }}</td>
+                <td>{{ purchase.note }}</td>
+                <td>{{ purchase.status }}</td>
+                <td>{{ purchase.created_at }}</td>
+                <td>
+                    <a href="{{ path('admin_purchase_show', {'id': purchase.id}) }}">show</a>
+                    <a href="{{ path('admin_purchase_edit', {'id': purchase.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_purchase_new') }}">Create new</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

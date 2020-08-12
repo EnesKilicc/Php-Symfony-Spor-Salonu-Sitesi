@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\SettingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,9 @@ class SecurityController extends AbstractController
      * @param $settingRepository
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils ): Response
+    public function login(AuthenticationUtils $authenticationUtils,CategoryRepository $categoryRepository ): Response
     {
-
+        $category = $categoryRepository->findAll();
         if ($this->getUser()) {
             $user = $this->getUser();
             if ($user->getRoles()[0] == 'ROLE_USER')
@@ -32,7 +33,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/adminlogin.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/adminlogin.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'category'=> $category]);
     }
 
     /**
@@ -55,15 +56,16 @@ class SecurityController extends AbstractController
     /**
      * @Route("/loginuser", name="login_user")
      */
-    public function loginuser(AuthenticationUtils $authenticationUtils, SettingRepository $settingRepository): Response
+    public function loginuser(AuthenticationUtils $authenticationUtils, SettingRepository $settingRepository,CategoryRepository $categoryRepository ): Response
     {
+        $category = $categoryRepository->findAll();
         $setting = $settingRepository->findAll();
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/userlogin.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'setting' => $setting]);
+        return $this->render('security/userlogin.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'setting' => $setting,'category'=>$category]);
     }
 
     /**

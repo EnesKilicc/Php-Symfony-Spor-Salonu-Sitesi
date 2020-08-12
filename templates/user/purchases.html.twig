@@ -1,0 +1,90 @@
+{% extends 'homebase.html.twig' %}
+
+{% block title %}{{ app.user.name }} Profil{% endblock %}
+
+{% block body %}
+    <section id="inner-headline">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
+                        <li><a href="/user">{{ app.user.name }} {{ app.user.surname }}</a><i class="icon-angle-right"></i></li>
+                        <li><a href="/user/{{ app.user.id }}/edit">My Comments</a><i class="icon-angle-right"></i></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="widget" style="width: 300px">
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="s" placeholder="Search..">
+                        </div>
+                    </form>
+                </div>
+                {{ include('user/usermenu.html.twig') }}
+                <div class="col-lg-8">
+                    <article>
+                        <h1>Purchase index</h1>
+
+
+
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Paketid</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Duration</th>
+                            <th>Total</th>
+                            <th>Note</th>
+                            <th>Status</th>
+                            <th>Created_at</th>
+                            <th>actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for purchase in purchases %}
+
+                            <tr>
+
+                                <td>{{ purchase.pname}}</td>
+                                <td>{{ purchase.name }}</td>
+                                <td>{{ purchase.surname }}</td>
+                                <td>{{ purchase.email }}</td>
+                                <td>{{ purchase.phone }}</td>
+                                <td>{{ purchase.duration }}</td>
+                                <td>{{ purchase.total }}</td>
+                                <td>{{ purchase.note }}</td>
+                                <td>{{ purchase.status }}</td>
+                                <td>{{ purchase.created_at  }}</td>
+                                <td>
+                                    <a href="{{ path('admin_purchase_show', {'id': purchase.id}) }}">show</a>
+                                    <a href="{{ path('admin_purchase_edit', {'id': purchase.id}) }}">edit</a>
+                                </td>
+                            </tr>
+
+                        {% else %}
+                            <tr>
+                                <td colspan="15">no records found</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -40,7 +40,7 @@
                 <article>
 
                         <div class="post-heading">
-                            <h3>{{ packet.title }}</h3>
+                            <h3>{{ packet.title }} </h3>
                         </div>
 
                     <table class="table">
@@ -81,10 +81,15 @@
                         </tr>
                         </tbody>
                     </table>
-                    
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="bottom-article">
-                        <button href="#" class="btn btn-info">Satın Al</button>
+                        <form action="{{ path('user_purchase_new', {'pid':packet.id}) }}">
+                        Paket Süresi <input type="number" id="duration" name="duration" value="1"> Ay
+                            <br>
+                            <input type="submit" value="Satın Al" class="btn btn-success">
+                        </form>
                     </div>
+                    {% endif %}
                 </article>
         </div>
     </div>

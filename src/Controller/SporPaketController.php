@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\SporPaket;
 use App\Form\SporPaket1Type;
+use App\Repository\CategoryRepository;
 use App\Repository\SporPaketRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,18 +19,21 @@ class SporPaketController extends AbstractController
     /**
      * @Route("/", name="user_spor_paket_index", methods={"GET"})
      */
-    public function index(SporPaketRepository $sporPaketRepository): Response
+    public function index(SporPaketRepository $sporPaketRepository,CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findAll();
         return $this->render('spor_paket/index.html.twig', [
             'spor_pakets' => $sporPaketRepository->findAll(),
+            'category'=>$category,
         ]);
     }
 
     /**
      * @Route("/new", name="user_spor_paket_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findAll();
         $sporPaket = new SporPaket();
         $form = $this->createForm(SporPaket1Type::class, $sporPaket);
         $form->handleRequest($request);
@@ -45,24 +49,28 @@ class SporPaketController extends AbstractController
         return $this->render('spor_paket/new.html.twig', [
             'spor_paket' => $sporPaket,
             'form' => $form->createView(),
+            'category'=>$category,
         ]);
     }
 
     /**
      * @Route("/{id}", name="user_spor_paket_show", methods={"GET"})
      */
-    public function show(SporPaket $sporPaket): Response
+    public function show(SporPaket $sporPaket,CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findAll();
         return $this->render('spor_paket/show.html.twig', [
             'spor_paket' => $sporPaket,
+            'category'=>$category,
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="user_spor_paket_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, SporPaket $sporPaket): Response
+    public function edit(Request $request, SporPaket $sporPaket,CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findAll();
         $form = $this->createForm(SporPaket1Type::class, $sporPaket);
         $form->handleRequest($request);
 
@@ -75,6 +83,7 @@ class SporPaketController extends AbstractController
         return $this->render('spor_paket/edit.html.twig', [
             'spor_paket' => $sporPaket,
             'form' => $form->createView(),
+            'category'=>$category,
         ]);
     }
 
