@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CategoryType extends AbstractType
 {
@@ -16,7 +18,20 @@ class CategoryType extends AbstractType
             ->add('title')
             ->add('keywords')
             ->add('description')
-            ->add('image')
+            ->add('image', FileType::class,[
+                'label' => 'Hotel Main Image',
+                'mapped' => false,
+                'required' => false,
+                'constraints' =>[
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/*',
+                        ],
+                        'mimeTypesMessage' => 'Please upload valid image file',
+                    ])
+                ],
+            ])
             ->add('status')
         ;
     }

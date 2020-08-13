@@ -29,9 +29,9 @@
                 </div>
                 {{ include('user/usermenu.html.twig') }}
                 <div class="col-lg-8">
-                    <h1>Edit User</h1>
+                    <h1>Satın Al</h1>
 
-                    <h4> <strong>{{ paket.title }} paket fiyatı {{ paket.fiyat }} paket süresi {{ duration }}ay toplam tutar {{ total }}</strong></h4>
+                    <h4> <strong>{{ paket.title }}  fiyatı: {{ paket.fiyat }} <br> paket süresi: {{ duration }}ay <br> toplam tutar {{ total }}</strong></h4>
 
                     {{ include ('messages.html.twig') }}
 
@@ -56,8 +56,9 @@
                                 <input type="text" class="form-control" id="purchase_phone" name="purchase[phone]" maxlength="75" placeholder="Phone" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
                                 <div class="validation"></div>
                             </div>
+                            ******** Kart Bilgileriniz 3D SECURE GÜVENCESİYLE *********
                             <div class="span12 margintop10 form-group">
-                                <textarea class="form-control" id="purchase_note" name="purchase[note]" maxlength="255" rows="12" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                <textarea class="form-control" id="purchase_note" name="purchase[note]" maxlength="255" rows="12" data-rule="required" data-msg="Please write something for us" placeholder="Kredi Kartı Bilgileriniz"></textarea>
                                 <div class="validation"></div>
                                 <p class="text-center">
                                     <input type="hidden"  name="token" value="{{ csrf_token('form-purchase') }}" />

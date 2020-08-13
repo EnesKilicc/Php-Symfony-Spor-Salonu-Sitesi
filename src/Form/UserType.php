@@ -20,12 +20,11 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-             ->add('roles', ChoiceType::class,[
-                 'choices' => [
-                     'ADMIN' => 'ROLE_ADMIN',
-                     'USER' => 'ROLE_USER'
-                 ],
-             ])
+            ->add('roles', ChoiceType::class,[
+                'choices' => [
+                    'USER' => 'ROLE_USER'
+                ],
+            ])
             ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

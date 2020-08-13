@@ -45,14 +45,16 @@ class UserController extends AbstractController
             'purchases'=>$purchases,
         ]);
     }
-    /**
+   /**
      * @Route("/packets", name="user_packets", methods={"GET"})
      */
+
     public function packets(CategoryRepository $categoryRepository): Response
     {
         $category = $categoryRepository->findAll();
         return $this->render('user/packets.html.twig',['category' => $category]);
     }
+
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
@@ -218,6 +220,15 @@ class UserController extends AbstractController
             'paket'=>$paket,
             'total'=>$total,
             'duration'=>$duration,
+        ]);
+    }
+    /**
+     * @Route("/show/{id}", name="user_purchase_show", methods={"GET"})
+     */
+    public function showpurchase(Purchase $purchase): Response
+    {
+        return $this->render('admin/purchase/show.html.twig', [
+            'purchase' => $purchase,
         ]);
     }
 }

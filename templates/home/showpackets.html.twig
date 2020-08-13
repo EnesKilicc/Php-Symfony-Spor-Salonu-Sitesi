@@ -35,7 +35,7 @@
                         <h5 class="widgetheading">Categories</h5>
                         <ul class="cat">
                             {% for rs in category %}
-                            <li><i class="fa fa-angle-right"></i><a href="/kategoriler/{{ rs.id }}">{{ rs.title }}</a><span> (20)</span></li>
+                            <li><i class="fa fa-angle-right"></i><a href="/kategoriler/{{ rs.id }}">{{ rs.title }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -48,19 +48,14 @@
                         <div class="post-heading">
                             <h3><a href="#">{{ rs.title }}</a></h3>
                         </div>
-                        <img src="{{ asset('uploads/images/' ~ rs.image) }}" alt="" class="img-responsive" />
+                        <img src="{{ asset('uploads/images/' ~ rs.image) }}" style="width: 620px; height: 410px;" alt="" class="img-responsive" />
                     </div>
                     <p>
                        {{ rs.description }}
                     </p>
                     <div class="bottom-article">
-                        <ul class="meta-post">
-                            <li><i class="fa fa-calendar"></i><a href="#"> Mar 27, 2014</a></li>
-                            <li><i class="fa fa-user"></i><a href="#"> Admin</a></li>
-                            <li><i class="fa fa-folder-open"></i><a href="#"> Blog</a></li>
-                            <li><i class="fa fa-comments"></i><a href="#">4 Comments</a></li>
-                        </ul>
-                        <a href="/packet/{{ rs.id }}" class="readmore pull-right">Continue reading <i class="fa fa-angle-right"></i></a>
+
+                        <a href="/packet/{{ rs.id }}" class="readmore pull-right">Paket Detayları <i class="fa fa-angle-right"></i></a>
                     </div>
                 </article>
                 {%  endfor %}

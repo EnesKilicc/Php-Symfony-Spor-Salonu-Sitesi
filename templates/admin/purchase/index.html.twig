@@ -13,19 +13,18 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Userid</th>
+                <th>Username</th>
                 <th>Paketid</th>
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Duration</th>
+                <th>Duration(Month)</th>
                 <th>Total</th>
                 <th>Ip</th>
                 <th>Note</th>
                 <th>Status</th>
                 <th>Created_at</th>
-                <th>Updated_at</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -44,10 +43,10 @@
                 <td>{{ purchase.ip }}</td>
                 <td>{{ purchase.note }}</td>
                 <td>{{ purchase.status }}</td>
-                <td>{{ purchase.created_at }}</td>
+                <td>{{ purchase.created_at | date ('Y-m-d')}}</td>
                 <td>
-                    <a href="{{ path('admin_purchase_show', {'id': purchase.id}) }}">show</a>
-                    <a href="{{ path('admin_purchase_edit', {'id': purchase.id}) }}">edit</a>
+                    <a href="{{ path('admin_purchase_show', {'id': purchase.id}) }}"class="btn btn-block btn-info" >show</a>
+                    <a href="{{ path('admin_purchase_edit', {'id': purchase.id}) }}"class="btn btn-block btn-success">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -58,7 +57,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin_purchase_new') }}">Create new</a>
             </div>
         </div>
     </div>

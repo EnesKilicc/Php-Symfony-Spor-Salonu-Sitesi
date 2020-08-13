@@ -10,7 +10,7 @@
                     <ul class="breadcrumb">
                         <li><a href="/"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
                         <li><a href="/user">{{ app.user.name }} {{ app.user.surname }}</a><i class="icon-angle-right"></i></li>
-                        <li><a href="/user/{{ app.user.id }}/edit">My Comments</a><i class="icon-angle-right"></i></li>
+                        <li class="active">My Purchase<i class="icon-angle-right"></i></li>
 
                     </ul>
                 </div>
@@ -35,20 +35,16 @@
 
 
 
-                    <table class="table">
+                    <table class="table table-info">
                         <thead>
                         <tr>
                             <th>Paketid</th>
-                            <th>Name</th>
-                            <th>Surname</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Duration</th>
+                            <th>Duration(Month)</th>
                             <th>Total</th>
                             <th>Note</th>
                             <th>Status</th>
-                            <th>Created_at</th>
-                            <th>actions</th>
+                            <th>Order At</th>
+                            <th>Packet Detail</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -57,18 +53,14 @@
                             <tr>
 
                                 <td>{{ purchase.pname}}</td>
-                                <td>{{ purchase.name }}</td>
-                                <td>{{ purchase.surname }}</td>
-                                <td>{{ purchase.email }}</td>
-                                <td>{{ purchase.phone }}</td>
-                                <td>{{ purchase.duration }}</td>
+                                <td>{{ purchase.duration }} </td>
                                 <td>{{ purchase.total }}</td>
                                 <td>{{ purchase.note }}</td>
                                 <td>{{ purchase.status }}</td>
-                                <td>{{ purchase.created_at  }}</td>
+                                <td>{{ purchase.created_at | date('Y-m-d') }} </td>
                                 <td>
-                                    <a href="{{ path('admin_purchase_show', {'id': purchase.id}) }}">show</a>
-                                    <a href="{{ path('admin_purchase_edit', {'id': purchase.id}) }}">edit</a>
+                                    <a href="/packet/{{purchase.paketid  }}" class="btn btn-success">show</a>
+
                                 </td>
                             </tr>
 

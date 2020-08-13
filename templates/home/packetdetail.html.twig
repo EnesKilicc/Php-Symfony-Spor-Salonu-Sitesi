@@ -12,6 +12,7 @@
                 <div class="col-lg-12">
                     <ul class="breadcrumb">
                         <li><a href="/"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
+                        <li><a href="/kategoriler/{{ packet.category.id }}">{{ packet.category }} Paketleri</a><i class="icon-angle-right"></i></li>
                         <li class="active">{{ packet.title }}</li>
                     </ul>
                 </div>
@@ -77,19 +78,24 @@
 
                         <tr>
                             <th>Detail</th>
-                            <td>{{ packet.detail }}</td>
+                            <td>{{ packet.detail | raw}}</td>
                         </tr>
                         </tbody>
                     </table>
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
                     <div class="bottom-article">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <form action="{{ path('user_purchase_new', {'pid':packet.id}) }}">
                         Paket Süresi <input type="number" id="duration" name="duration" value="1"> Ay
                             <br>
                             <input type="submit" value="Satın Al" class="btn btn-success">
                         </form>
+                            {% else %}
+                            Paketi Satın Almak için Giriş Yapınız
+                            <a href="/loginuser" class="btn btn-block btn-warning">Login</a>
+                        {% endif %}
                     </div>
-                    {% endif %}
+
                 </article>
         </div>
     </div>
