@@ -52,15 +52,15 @@
 
                             <tr>
 
-                                <td>{{ purchase.pname}}</td>
+                                <td><a href="/packet/{{purchase.paketid  }}">{{ purchase.pname}}</a></td>
                                 <td>{{ purchase.duration }} </td>
                                 <td>{{ purchase.total }}</td>
                                 <td>{{ purchase.note }}</td>
                                 <td>{{ purchase.status }}</td>
                                 <td>{{ purchase.created_at | date('Y-m-d') }} </td>
                                 <td>
-                                    <a href="/packet/{{purchase.paketid  }}" class="btn btn-success">show</a>
 
+                                    <a href="/packet/{{purchase.paketid  }}" class="btn btn-success">show</a>
                                 </td>
                             </tr>
 

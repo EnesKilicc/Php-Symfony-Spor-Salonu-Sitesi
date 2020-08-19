@@ -223,12 +223,17 @@ class UserController extends AbstractController
         ]);
     }
     /**
-     * @Route("/show/{id}", name="user_purchase_show", methods={"GET"})
+     * @Route("/showpacket/{id}", name="user_purchase_show", methods={"GET"})
      */
-    public function showpurchase(Purchase $purchase): Response
+    public function showpurchase(SporPaketRepository $sporPaketRepository,$id, CategoryRepository $categoryRepository): Response
     {
-        return $this->render('admin/purchase/show.html.twig', [
-            'purchase' => $purchase,
+        $category = $categoryRepository->findAll();
+        $purchase = $sporPaketRepository->findOneBy(['id'=> $id]);
+
+        return $this->render('user/packetdetail.html.twig', [
+            'spor_paket' => $purchase,
+            'category' => $category,
+
         ]);
     }
 }
